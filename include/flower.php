@@ -6,6 +6,7 @@ class flower {
 	const URL_FRIENDS    = "https://h5.qzone.qq.com/flower/proxy/fcg-bin/fcg_get_friends_flower?platform=2&status=1&type=1";
 	const URL_USER_PROPS = "https://h5.qzone.qq.com/flower/proxy/cgi-bin/cgi_show_userprop?platform=2&status=1&type=1";
 	const URL_USE_PROP   = "https://h5.qzone.qq.com/flower/proxy/cgi-bin/cgi_use_mallprop";
+	const URL_PLANT      = "https://h5.qzone.qq.com/flower/proxy/cgi-bin/fg_plant";
 
 	public $curl = null;
 
@@ -34,6 +35,13 @@ class flower {
 	public function useProp($propid) {
 		$format = "json";
 		$data = $this->curl->send(self::URL_USE_PROP, compact("format", "propid"));
+		$data = mb_convert_encoding($data, "utf-8", "gbk");
+		return json_decode($data);
+	}
+
+	public function plant($act) {
+		$format = "json";
+		$data = $this->curl->send(self::URL_PLANT, compact("format", "act"));
 		$data = mb_convert_encoding($data, "utf-8", "gbk");
 		return json_decode($data);
 	}
